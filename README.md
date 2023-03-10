@@ -1,0 +1,1 @@
+# altia-mtb-example-psoc6-multiindustry
