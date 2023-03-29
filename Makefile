@@ -133,7 +133,7 @@ LDFLAGS=$(HMI_DIR)/out/reflash/$(HMI)/altia_table_bin.o $(HMI_DIR)/out/reflash/$
 LDLIBS=$(HMI_DIR)/out/libaltia.a
 
 # Path to the linker script to use (if empty, use the default linker script).
-LINKER_SCRIPT=
+LINKER_SCRIPT=$(wildcard ./templates/TARGET_$(TARGET)/COMPONENT_CM4/TOOLCHAIN_$(TOOLCHAIN)/linker.ld)
 
 # Custom pre-build commands to run.
 ifeq ("$(wildcard $(HMI_DIR))", "")
