@@ -1,7 +1,7 @@
 /*******************************************************************************
 * File Name:   main.c
 *
-* Description: This is the source code for the Empty Application Example
+* Description: This is the source code for the Altia Multi-Industry Demo
 *              for ModusToolbox.
 *
 * Related Document: See README.md
@@ -245,9 +245,9 @@ void GPIO_Interrupt()
 * Function Name: main
 ********************************************************************************
 * Summary:
-* This is the main function for CPU. It...
-*    1.
-*    2.
+* This is the main function for CPU. It
+*    1. Initializes the display controllers
+*    2. Uses the Altia APIs to transition between different screens
 *
 * Parameters:
 *  void
