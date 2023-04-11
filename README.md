@@ -1,25 +1,25 @@
-# Altia Multi-Industry Demo for PSoC 6
+# Altia Multi-Industry Demo for PSoC&trade; 6
 
-This readme describes the steps necessary to build Altia Multi-Industry Demo for Infineon PSoC 6 Evaluation Board, CY8CKIT-062S2-43012, utilizing CY8CKIT-028-TFT display.
+This readme describes the steps necessary to build Altia Multi-Industry Demo for Infineon PSoC&trade; 6 Evaluation Board, CY8CKIT-062S2-43012, utilizing CY8CKIT-028-TFT display.
 
 ## Requirements
-- [ModusToolbox™ software](https://www.infineon.com/modustoolbox) v3.0.0 or later (sample was tested with v3.0.0)
-- Board support package (BSP) minimum required version: v4.1.0 (sample was tested with this version)
+- [ModusToolbox™ software](https://www.infineon.com/modustoolbox) v3.0.0 or later (tested with v3.0.0)
+- Board support package (BSP) minimum required version: v4.0.0
 - Programming language: C
 - Associated parts: All [PSoC™ 6 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu) parts
 
-### Supported Languages
+## Supported Languages
 - English
 
-### Supported toolchains
+## Supported toolchains
 - GNU Arm® embedded compiler v10.3.1 (GCC_ARM)
 
-### Supported kits
+## Supported kits
 - PSoC™ 62S2 Wi-Fi Bluetooth® pioneer kit (CY8CKIT-062S2-43012) + Display (CY8CKIT-028-TFT)
 
 ## Installation
 For this demo, you need to:
-1. Download and install ModusToolBox.
+1. Download and install ModusToolBox&trade;.
 2. Request from support@altia.com to obtain Altia GUI design tool software.
 3. Use the Altia invitation email to create your account.
 4. After creation, download and install the Altia Launcher (available after account creation on our website).
@@ -37,30 +37,6 @@ The image below shows the PSoC™ 6 evaluation board with the display shield mou
 - **B** SW4 (USER BTN2)
 - **C** SW2 (USER BTN1)
 - **D** SW1 (XRES) Reset Button
-
-## Build Altia Multi-Industry Demo via ModusToolBox
-Below is the overview of two project components that are needed to build the Altia multi-industry demo via ModuToolbox IDE. Check out these two projects from GitHub and clone them into the local folder. The next sections describe how to build Altia HMI first from Altia Launch and then how to use ModusToolbox IDE to build the demo.
-
-1. The Altia Project for the Infineon PSOC 6 platform.  See section [Build Altia HMI from Altia Launcher](#build-altia-hmi-from-altia-launcher)
-2. The ModusToolBox Sample project (this repository)
-  1. Built and tested with ModusTooBox v2.4.0
-  1. The content of the AltiaHMISample_CY8CKIT-028-TFT folder must be imported as a project into the ModusToolBox IDE. After updating the ModusToolBox Libraries, the demo application can be built and deployed to the PSoC 6 evaluation board.
-  1. The ModusToolBox sample project includes a linker-script incorporating the Altia BAM binary files and includes the required Altia DeepScreen miniGL target BSP functions.
-
-## Build Altia HMI from Altia Launcher
-1. From Altia Launcher window, click the “Create Project” button from the Project view.
-2. Select the Infineon PSoC 6 configuration when creating the project. Make sure that “Include tutorial content” is checked then press the “Next” button:
-![](images/template.jpg)
-3. A Save-As Dialog will appear.  Browse to the location of your ModusToolBox Workspace (in this folder also your altia-mtb-example-psoc6-multiindustry is located). Enter the name “ByteSizedDemo” for your new Altia project and press Save (the ByteSizedDemo folder shall be next to your altia-mtb-example-psoc6-multiindustry project forlder).  Your new project will now appear in the Project View.
-4. From the Project View, click the “…” button at the top right of the project image icon and select “Generate Target Code” to trigger the code generation:
-![](images/generate.jpg)
-5. Allow the upload of the project to Altia for code generation:
-![](images/upload.jpg)
-6. The progress of the code generation can be observed in the Activities View:
-![](images/activities.jpg)
-7. When the code generation is complete, download the results by clicking the download icon in the Activities View:
-![](images/download.jpg)
-8. You will download the results later after setting up ModusToolBox
 
 ## Using the code example
 
@@ -142,18 +118,125 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 </details>
 
-## Step-by-step instructions to build the project
+## Step-by-step instructions to build the application
 
-1. Create a folder named “ByteSizedDemo” next to the project root folder that you just created.
-2. Return to the Altia Launcher > Activities Tab. Select the download button for the design you build in the previous section. A Save-As Dialog will appear.  Pick the ByteSizedDemo folder you just created for the download.
-3. A File Explorer window will open after the download is complete.  The following folders will be present:
-  1. “log” folder – contains the logs from the code generation.
-  1. “out” folder – contains the build artifacts (Altia libs, headers, and reflash assets).
-4. Now in ModusToolBox, build the demo application by right-clicking the altia-mtb-example-psoc6-multiindustry project and selecting “Build Project”. Alternatively, this building project process can be done by running “make getlibs” in the ModusToolBox Console.
-5. When the application build process is finished successfully, the ELF-file of the application named altia-mtb-example-psoc6-multiindustry.elf will be in altia-mtb-example-psoc6-multiindustry/build/CY8CKIT-062S2-43012/(Debug|Release) folder. 
+1. Open Altia Launcher by entering the credentials and logging into your account.
 
-## Deploy Demo to PSoC 6 Evaluation Board via IDE
-The demo executable can be programmed to PSoC 6 evaluation board via the ModusToolbox IDE using the corresponding Application Launcher. It is recommended to update the Launcher Configurations to match the current selected build-type (Debug/Release). This is done by running “Generate Launches for AltiaHIMSample_CY8CKIT-028-TFT” as shown below.
-1. Connect the boards J6 USB port to the PC. USB port shown in the Board Connection Setup section of this document.
-![](images/deploy.jpg)
-2. Select “altia-mtb-example-psoc6-multiindustry Program (KitProg3_MiniProg4)” from the Quick Panel to deploy the demo to the board.
+2. From Altia Launcher window, click the **Create Project** button from the Project view.
+
+3. Select the "miniGL Infineon PSoC&trade; 6" configuration when creating the project. Make sure that “Include tutorial content” is checked then press the “Next” button:
+![](images/template.jpg)
+
+4. A **Save-As** dialog will appear. Browse to the location where you want to save the Altia project and enter the name “ByteSizedDemo”. Press **Save**. Your new project will now appear in the Project View in Altia Launcher. 
+
+5. From the Project View, click the “…” button at the top right of the project image icon and select “Generate Target Code” to trigger the code generation:
+![](images/generate.jpg)
+
+6. Allow the upload of the project to Altia for code generation:
+![](images/upload.jpg)
+
+7. The progress of the code generation can be observed in the Activities View:
+![](images/activities.jpg)
+
+8. When the code generation is complete, you should see the option to download the results in the Activities View. We will use this in the upcoming steps.
+![](images/download.jpg)
+
+9. Create a folder named "ByteSizedDemo" inside the application root folder. 
+
+10. In Altia Launcher, navigate to the Activities tab. Click the download button for the design you built in the previous steps. A **Save-As** dialog will appear. Pick the "ByteSizedDemo" folder you just created for the download.
+
+11. The file explorer window will open after the download is complete. The following folders will be present:
+   - “log” folder – contains the logs from the code generation.
+   - “out” folder – contains the build artifacts (Altia libs, headers, and reflash assets).
+
+12. In Eclipse IDE, build the demo application by right-clicking the altia-mtb-example-psoc6-multiindustry project and selecting “Build Application”. Alternatively, the application can be built using the "make build" command using any shell application on Linux/MacOS or "modus-shell" application on Windows.
+
+13. When the application is built successfully, the elf file of the application named altia-mtb-example-psoc6-multiindustry.elf will be generated in altia-mtb-example-psoc6-multiindustry/build/CY8CKIT-062S2-43012/(Debug|Release) folder.
+
+## Operation
+
+1. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
+
+2. Program the board using one of the following:
+
+   <details><summary><b>Using Eclipse IDE for ModusToolbox&trade; software</b></summary>
+
+      1. Select the application project in the Project Explorer.
+
+      2. Update the Launches to use the right configuration (Debug/Release) by clicking "Generate Launches" inside the **Launches** section in the Quick Panel.
+
+      3. In the **Quick Panel**, scroll down, and click **\<Application Name> Program (KitProg3_MiniProg4)**.
+   </details>
+
+   <details><summary><b>Using CLI</b></summary>
+
+     From the terminal, execute the `make program` command to build and program the application using the default toolchain to the default target. The default toolchain is specified in the application's Makefile but you can override this value manually:
+      ```
+      make program TOOLCHAIN=<toolchain>
+      ```
+
+      Example:
+      ```
+      make program TOOLCHAIN=GCC_ARM
+      ```
+   </details>
+
+4. After programming, the application starts automatically. 
+
+5. Observe the TFT display transitions between different screens that showcase Altia GUI designs you can create for different industries.
+
+## Debugging
+
+You can debug the example to step through the code. In the IDE, use the **\<Application Name> Debug (KitProg3_MiniProg4)** configuration in the **Quick Panel**. For details, see the "Program and debug" section in the [Eclipse IDE for ModusToolbox&trade; software user guide](https://www.infineon.com/MTBEclipseIDEUserGuide).
+
+**Note:** **(Only while debugging)** On the CM4 CPU, some code in `main()` may execute before the debugger halts at the beginning of `main()`. This means that some code executes twice – once before the debugger stops execution, and again after the debugger resets the program counter to the beginning of `main()`. See [KBA231071](https://community.infineon.com/docs/DOC-21143) to learn about this and for the workaround.
+
+## Customizing the code example
+
+To incorporate the Altia library into a ModusToolbox&trade; application here are the steps:
+
+1. Create your project in Altia Launcher. 
+
+2. Refer to the User Guides available in the menu to create your own GUI. Contact Altia support for any queries on using the tool.
+
+3. Create a prebuild command to generate relocatable object files and binaries that will be used for partial linking. Repeat this command for all other object files as needed.
+   ```
+   PREBUILD+=$(CY_TOOLS_PATHS)/gcc/bin/arm-none-eabi-ld.exe -r -b binary $(HMI_DIR)/out/reflash/$(HMI)/altia_table_bin.o $(HMI_DIR)/out/reflash/$(HMI)/table.bin;
+   ```
+
+4. Integrate the necessary generated binary files and Altia library using the `LDFLAGS` and `LDLIBS` makefile variables. See [Makefile](./Makefile) for more information.
+   ```
+   LDFLAGS=$(HMI_DIR)/out/reflash/$(HMI)/altia_table_bin.o 
+   LDLIBS=$(HMI_DIR)/out/libaltia.a
+   ```
+
+5. Include necessary folders using the `INCLUDES` makefile variable. See [Makefile](./Makefile) for more information.
+
+6. Modify the linker script available inside the bsps folder to add a `.rodata` section to contain the images, fonts and any other constant data required by the GUI. Allocate a region of flash for `altia_flash` section and then add the lines below. See [template linker script](./templates/TARGET_CY8CKIT-062S2-43012/COMPONENT_CM4/TOOLCHAIN_GCC_ARM/linker.ld) for more information.
+   ```
+      .rodata ORIGIN(altia_flash) :
+      {
+         /* Read-only code (constants). */
+         __altia_table_start__ = .;
+         KEEP(*altia_table_bin.o(.data))
+         __altia_table_end__ = .;
+         __altia_images_start__ = .;
+         KEEP(*altia_images_bin.o(.data))
+         __altia_images_end__ = .;
+         __altia_fonts_start__ = .;
+         KEEP(*altia_fonts_bin.o(.data))        
+         __altia_fonts_end__ = .;
+      } > altia_flash
+   ```
+
+7. Include the custom linker script in the Makefile as follows
+   ```
+   LINKER_SCRIPT=$(wildcard ./bsps/TARGET_$(TARGET)/COMPONENT_CM4/TOOLCHAIN_$(TOOLCHAIN)/linker.ld)
+   ```
+
+8. Set the `VFP_SELECT` variable to support hardware floating point.
+   ```
+   VFP_SELECT=hardfp
+   ```
+
+9. Modify the source code to use Altia APIs and develop your application.
