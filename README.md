@@ -151,7 +151,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 12. In Eclipse IDE, build the demo application by right-clicking the altia-mtb-example-psoc6-multiindustry project and selecting “Build Application”. Alternatively, the application can be built using the "make build" command using any shell application on Linux/MacOS or "modus-shell" application on Windows.
 
-13. When the application is built successfully, the elf file of the application named altia-mtb-example-psoc6-multiindustry.elf will be generated in altia-mtb-example-psoc6-multiindustry/build/CY8CKIT-062S2-43012/(Debug|Release) folder.
+13. When the application is built successfully, the elf file of the application named altia-mtb-example-psoc6-multiindustry.elf will be generated in altia-mtb-example-psoc6-multiindustry/build/APP_CY8CKIT-062S2-43012/(Debug|Release) folder.
 
 ## Operation
 
@@ -199,20 +199,22 @@ To incorporate the Altia library into a ModusToolbox&trade; application here are
 
 2. Refer to the User Guides available in the menu to create your own GUI. Contact Altia support for any queries on using the tool.
 
-3. Create a prebuild command to generate relocatable object files and binaries that will be used for partial linking. Repeat this command for all other object files as needed.
+3. Create a folder in your application root folder and have Altia launcher download the generated files into this folder. This is similar to the [steps](#step-by-step-instructions-to-build-the-application) followed when building the code example.
+
+4. Create a prebuild command to generate relocatable object files and binaries that will be used for partial linking. Repeat this command for all other object files as needed. Here `HMI_DIR` is a user defined variable to point to the folder created in the previous step that contains the generated files. See [Makefile](./Makefile) for more information.
    ```
    PREBUILD+=$(CY_TOOLS_PATHS)/gcc/bin/arm-none-eabi-ld.exe -r -b binary $(HMI_DIR)/out/reflash/$(HMI)/altia_table_bin.o $(HMI_DIR)/out/reflash/$(HMI)/table.bin;
    ```
 
-4. Integrate the necessary generated binary files and Altia library using the `LDFLAGS` and `LDLIBS` makefile variables. See [Makefile](./Makefile) for more information.
+5. Integrate the necessary generated binary files and Altia library using the `LDFLAGS` and `LDLIBS` makefile variables. See [Makefile](./Makefile) for more information.
    ```
    LDFLAGS=$(HMI_DIR)/out/reflash/$(HMI)/altia_table_bin.o 
    LDLIBS=$(HMI_DIR)/out/libaltia.a
    ```
 
-5. Include necessary folders using the `INCLUDES` makefile variable. See [Makefile](./Makefile) for more information.
+6. Include necessary folders using the `INCLUDES` makefile variable. See [Makefile](./Makefile) for more information.
 
-6. Modify the linker script available inside the bsps folder to add a `.rodata` section to contain the images, fonts and any other constant data required by the GUI. Allocate a region of flash for `altia_flash` section and then add the lines below. See [template linker script](./templates/TARGET_CY8CKIT-062S2-43012/COMPONENT_CM4/TOOLCHAIN_GCC_ARM/linker.ld) for more information.
+7. Modify the linker script available inside the bsps folder to add a `.rodata` section to contain the images, fonts and any other constant data required by the GUI. Allocate a region of flash for `altia_flash` section and then add the lines below. See [template linker script](./templates/TARGET_CY8CKIT-062S2-43012/COMPONENT_CM4/TOOLCHAIN_GCC_ARM/linker.ld) for more information.
    ```
       .rodata ORIGIN(altia_flash) :
       {
@@ -227,11 +229,6 @@ To incorporate the Altia library into a ModusToolbox&trade; application here are
          KEEP(*altia_fonts_bin.o(.data))        
          __altia_fonts_end__ = .;
       } > altia_flash
-   ```
-
-7. Include the custom linker script in the Makefile as follows
-   ```
-   LINKER_SCRIPT=$(wildcard ./bsps/TARGET_$(TARGET)/COMPONENT_CM4/TOOLCHAIN_$(TOOLCHAIN)/linker.ld)
    ```
 
 8. Set the `VFP_SELECT` variable to support hardware floating point.
