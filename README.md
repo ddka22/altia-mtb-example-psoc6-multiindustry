@@ -236,4 +236,4 @@ To incorporate the Altia library into a ModusToolbox&trade; application here are
    VFP_SELECT=hardfp
    ```
 
-9. Modify the source code to use Altia APIs and develop your application.
+9. Modify the ModusToolbox application source code to use Altia APIs and develop your application.
