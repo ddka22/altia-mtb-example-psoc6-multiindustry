@@ -197,9 +197,9 @@ To incorporate the Altia library into a ModusToolbox&trade; application here are
 
 1. Create your project in Altia Launcher. 
 
-2. Refer to the User Guides available in the menu to create your own GUI. Contact Altia support for any queries on using the tool.
+2. Refer to the User Guides available in the "Altia Support" menu in Altia Launcher to create your own GUI. Contact Altia support for any queries on using the tool.
 
-3. Create a folder in your application root folder and have Altia launcher download the generated files into this folder. This is similar to the [steps](#step-by-step-instructions-to-build-the-application) followed when building the code example.
+3. Create a folder in your application root folder and have Altia Launcher download the generated files into this folder. This is similar to the [steps](#step-by-step-instructions-to-build-the-application) followed when building the code example.
 
 4. Create a prebuild command to generate relocatable object files and binaries that will be used for partial linking. Repeat this command for all other object files as needed. Here `HMI_DIR` is a user defined variable to point to the folder created in the previous step that contains the generated files. See [Makefile](./Makefile) for more information.
    ```
