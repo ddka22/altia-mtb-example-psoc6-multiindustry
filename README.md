@@ -127,7 +127,11 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 3. Select the "miniGL Infineon PSoC&trade; 6" configuration when creating the project. Make sure that “Include tutorial content” is checked then press the “Next” button:
 ![](images/template.jpg)
 
-4. A **Save-As** dialog will appear. Browse to the location of the ModusToolbox application root folder and enter the name “ByteSizedDemo”. Press **Save**. Your new project will now appear in the Project View in Altia Launcher. 
+4. A **Save-As** dialog will appear. Browse to the location of the ModusToolbox application root folder and enter the name “ByteSizedDemo”. Press **Save**. Your new project will now appear in the Project View in Altia Launcher. If you prefer a different name, make sure you edit the following [Makefile](./Makefile) variables accordingly.
+   ```
+   HMI_DIR=./ByteSizedDemo
+   HMI=ByteSizedDemo
+   ```
 
 5. From the Projects tab, click the “…” button at the top right of the project image icon and select “Generate Target Code” to trigger the code generation:
 ![](images/generate.jpg)
