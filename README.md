@@ -127,9 +127,9 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 3. Select the "miniGL Infineon PSoC&trade; 6" configuration when creating the project. Make sure that “Include tutorial content” is checked then press the “Next” button:
 ![](images/template.jpg)
 
-4. A **Save-As** dialog will appear. Browse to the location where you want to save the Altia project and enter the name “ByteSizedDemo”. Press **Save**. Your new project will now appear in the Project View in Altia Launcher. 
+4. A **Save-As** dialog will appear. Browse to the location of the ModusToolbox application root folder and enter the name “ByteSizedDemo”. Press **Save**. Your new project will now appear in the Project View in Altia Launcher. 
 
-5. From the Project View, click the “…” button at the top right of the project image icon and select “Generate Target Code” to trigger the code generation:
+5. From the Projects tab, click the “…” button at the top right of the project image icon and select “Generate Target Code” to trigger the code generation:
 ![](images/generate.jpg)
 
 6. Allow the upload of the project to Altia for code generation:
@@ -141,17 +141,15 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 8. When the code generation is complete, you should see the option to download the results in the Activities View. We will use this in the upcoming steps.
 ![](images/download.jpg)
 
-9. Create a folder named "ByteSizedDemo" inside the application root folder. 
+9.  In Altia Launcher, navigate to the Activities tab. Click the download button for the design you built in the previous steps. A **Save-As** dialog will appear. Pick the "ByteSizedDemo" folder you created in Step 4.
 
-10. In Altia Launcher, navigate to the Activities tab. Click the download button for the design you built in the previous steps. A **Save-As** dialog will appear. Pick the "ByteSizedDemo" folder you just created for the download.
-
-11. The file explorer window will open after the download is complete. The following folders will be present:
+10.   The file explorer window will open after the download is complete. The following folders will be present:
    - “log” folder – contains the logs from the code generation.
    - “out” folder – contains the build artifacts (Altia libs, headers, and reflash assets).
 
-12. In Eclipse IDE, build the demo application by right-clicking the altia-mtb-example-psoc6-multiindustry project and selecting “Build Application”. Alternatively, the application can be built using the "make build" command using any shell application on Linux/MacOS or "modus-shell" application on Windows.
+11.   In Eclipse IDE, build the demo application by right-clicking the altia-mtb-example-psoc6-multiindustry project and selecting “Build Application”. Alternatively, the application can be built using the "make build" command using any shell application on Linux/MacOS or "modus-shell" application on Windows.
 
-13. When the application is built successfully, the elf file of the application named altia-mtb-example-psoc6-multiindustry.elf will be generated in altia-mtb-example-psoc6-multiindustry/build/APP_CY8CKIT-062S2-43012/(Debug|Release) folder.
+12.   When the application is built successfully, the elf file of the application named altia-mtb-example-psoc6-multiindustry.elf will be generated in altia-mtb-example-psoc6-multiindustry/build/APP_CY8CKIT-062S2-43012/(Debug|Release) folder.
 
 ## Operation
 
