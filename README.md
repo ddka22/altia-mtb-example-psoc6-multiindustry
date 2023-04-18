@@ -185,7 +185,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 4. After programming, the application starts automatically. 
 
-5. Observe the TFT display transitions between different screens that showcase Altia GUI designs you can create for different industries.
+5. Press button SW2 to transition between the different screens that showcase Altia GUI designs you can create for different industries.
 
 ## Debugging
 
