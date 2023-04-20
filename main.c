@@ -1,48 +1,48 @@
 /*******************************************************************************
-* File Name:   main.c
-*
-* Description: This is the source code for the Altia Multi-Industry Demo
-*              for ModusToolbox.
-*
-* Related Document: See README.md
-*
-*
-********************************************************************************
-* Copyright 2021-2023, Cypress Semiconductor Corporation (an Infineon company) or
-* an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
-*
-* This software, including source code, documentation and related
-* materials ("Software") is owned by Cypress Semiconductor Corporation
-* or one of its affiliates ("Cypress") and is protected by and subject to
-* worldwide patent protection (United States and foreign),
-* United States copyright laws and international treaty provisions.
-* Therefore, you may use this Software only as provided in the license
-* agreement accompanying the software package from which you
-* obtained this Software ("EULA").
-* If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
-* non-transferable license to copy, modify, and compile the Software
-* source code solely for use in connection with Cypress's
-* integrated circuit products.  Any reproduction, modification, translation,
-* compilation, or representation of this Software except as specified
-* above is prohibited without the express written permission of Cypress.
-*
-* Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
-* EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
-* WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
-* reserves the right to make changes to the Software without notice. Cypress
-* does not assume any liability arising out of the application or use of the
-* Software or any product or circuit described in the Software. Cypress does
-* not authorize its products for use in any products where a malfunction or
-* failure of the Cypress product may reasonably be expected to result in
-* significant property damage, injury or death ("High Risk Product"). By
-* including Cypress's product in a High Risk Product, the manufacturer
-* of such system or application assumes all risk of such use and in doing
-* so agrees to indemnify Cypress against all liability.
-*******************************************************************************/
+ * File Name:   main.c
+ *
+ * Description: This is the source code for the Altia Multi-Industry Demo
+ *              for ModusToolbox.
+ *
+ * Related Document: See README.md
+ *
+ *
+ ********************************************************************************
+ * Copyright 2021-2023, Cypress Semiconductor Corporation (an Infineon company) or
+ * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
+ *
+ * This software, including source code, documentation and related
+ * materials ("Software") is owned by Cypress Semiconductor Corporation
+ * or one of its affiliates ("Cypress") and is protected by and subject to
+ * worldwide patent protection (United States and foreign),
+ * United States copyright laws and international treaty provisions.
+ * Therefore, you may use this Software only as provided in the license
+ * agreement accompanying the software package from which you
+ * obtained this Software ("EULA").
+ * If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+ * non-transferable license to copy, modify, and compile the Software
+ * source code solely for use in connection with Cypress's
+ * integrated circuit products.  Any reproduction, modification, translation,
+ * compilation, or representation of this Software except as specified
+ * above is prohibited without the express written permission of Cypress.
+ *
+ * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress
+ * reserves the right to make changes to the Software without notice. Cypress
+ * does not assume any liability arising out of the application or use of the
+ * Software or any product or circuit described in the Software. Cypress does
+ * not authorize its products for use in any products where a malfunction or
+ * failure of the Cypress product may reasonably be expected to result in
+ * significant property damage, injury or death ("High Risk Product"). By
+ * including Cypress's product in a High Risk Product, the manufacturer
+ * of such system or application assumes all risk of such use and in doing
+ * so agrees to indemnify Cypress against all liability.
+ *******************************************************************************/
 
 /*******************************************************************************
-* Header Files
-*******************************************************************************/
+ * Header Files
+ *******************************************************************************/
 #include "cyhal.h"
 #include "cybsp.h"
 
@@ -56,82 +56,38 @@
 #include "miniGL_software_render.h"
 
 /*******************************************************************************
-* Macros
-*******************************************************************************/
+ * Macros
+ *******************************************************************************/
 #define GPIO_ISR_FLAG           (1u)
-#define GPIO_ISR_MASKED         (1u)
-#define INTCAUSE0_PORT0         (1u)
+#define GPIO_INTERRUPT_PRIORITY (2u)
+#define BTN1_CB_ARG             (0)
+#define BTN2_CB_ARG             (1)
 
 /*******************************************************************************
-* Global Variables
-*******************************************************************************/
-/* This structure is used to initialize a single GPIO pin using PDL configuration. */
-const cy_stc_gpio_pin_config_t P0_4_Pin_Init =
-{
-    .outVal     = 1u,                   /* Pin output state */
-    .driveMode  = CY_GPIO_DM_PULLUP,    /* Drive mode */
-    .hsiom      = HSIOM_SEL_GPIO,       /* HSIOM selection */
-    .intEdge    = CY_GPIO_INTR_FALLING, /* Interrupt Edge type */
-    .intMask    = CY_GPIO_INTR_EN_MASK, /* Interrupt enable mask */
-    .vtrip      = CY_GPIO_VTRIP_CMOS,   /* Input buffer voltage trip type */
-    .slewRate   = CY_GPIO_SLEW_FAST,    /* Output buffer slew rate */
-    .driveSel   = CY_GPIO_DRIVE_FULL,   /* Drive strength */
-    .vregEn     = 0u,                   /* SIO pair output buffer mode */
-    .ibufMode   = 0u,                   /* SIO pair input buffer mode */
-    .vtripSel   = 0u,                   /* SIO pair input buffer trip point */
-    .vrefSel    = 0u,                   /* SIO pair reference voltage for input buffer trip point */
-    .vohSel     = 0u                    /* SIO pair regulated voltage output level */
-};
-
-const cy_stc_gpio_pin_config_t P1_4_Pin_Init =
-{
-    .outVal     = 1u,                   /* Pin output state */
-    .driveMode  = CY_GPIO_DM_PULLUP,    /* Drive mode */
-    .hsiom      = HSIOM_SEL_GPIO,       /* HSIOM selection */
-    .intEdge    = CY_GPIO_INTR_FALLING, /* Interrupt Edge type */
-    .intMask    = CY_GPIO_INTR_EN_MASK, /* Interrupt enable mask */
-    .vtrip      = CY_GPIO_VTRIP_CMOS,   /* Input buffer voltage trip type */
-    .slewRate   = CY_GPIO_SLEW_FAST,    /* Output buffer slew rate */
-    .driveSel   = CY_GPIO_DRIVE_FULL,   /* Drive strength */
-    .vregEn     = 0u,                   /* SIO pair output buffer mode */
-    .ibufMode   = 0u,                   /* SIO pair input buffer mode */
-    .vtripSel   = 0u,                   /* SIO pair input buffer trip point */
-    .vrefSel    = 0u,                   /* SIO pair reference voltage for input buffer trip point */
-    .vohSel     = 0u                    /* SIO pair regulated voltage output level */
-};
-
-/* This structure initializes the Port0 interrupt for the NVIC */
-cy_stc_sysint_t intrCfg0_4 =
-{
-    .intrSrc = ioss_interrupts_gpio_0_IRQn, /* Interrupt source is GPIO port 0 and 1 interrupt */
-    .intrPriority = 2UL                     /* Interrupt priority is 2 */
-};
-
-cy_stc_sysint_t intrCfg1_4 =
-{
-    .intrSrc = ioss_interrupts_gpio_1_IRQn, /* Interrupt source is GPIO port 0 and 1 interrupt */
-    .intrPriority = 2UL                     /* Interrupt priority is 2 */
-};
-
-
+ * Global Variables
+ *******************************************************************************/
 /* The pins above are defined by the CY8CKIT-028-TFT library. If the display is being used on different hardware the mappings will be different. */
 const mtb_st7789v_pins_t tft_pins =
 {
-    .db08 = CY8CKIT_028_TFT_PIN_DISPLAY_DB8,
-    .db09 = CY8CKIT_028_TFT_PIN_DISPLAY_DB9,
-    .db10 = CY8CKIT_028_TFT_PIN_DISPLAY_DB10,
-    .db11 = CY8CKIT_028_TFT_PIN_DISPLAY_DB11,
-    .db12 = CY8CKIT_028_TFT_PIN_DISPLAY_DB12,
-    .db13 = CY8CKIT_028_TFT_PIN_DISPLAY_DB13,
-    .db14 = CY8CKIT_028_TFT_PIN_DISPLAY_DB14,
-    .db15 = CY8CKIT_028_TFT_PIN_DISPLAY_DB15,
-    .nrd  = CY8CKIT_028_TFT_PIN_DISPLAY_NRD,
-    .nwr  = CY8CKIT_028_TFT_PIN_DISPLAY_NWR,
-    .dc   = CY8CKIT_028_TFT_PIN_DISPLAY_DC,
-    .rst  = CY8CKIT_028_TFT_PIN_DISPLAY_RST
+        .db08 = CY8CKIT_028_TFT_PIN_DISPLAY_DB8,
+        .db09 = CY8CKIT_028_TFT_PIN_DISPLAY_DB9,
+        .db10 = CY8CKIT_028_TFT_PIN_DISPLAY_DB10,
+        .db11 = CY8CKIT_028_TFT_PIN_DISPLAY_DB11,
+        .db12 = CY8CKIT_028_TFT_PIN_DISPLAY_DB12,
+        .db13 = CY8CKIT_028_TFT_PIN_DISPLAY_DB13,
+        .db14 = CY8CKIT_028_TFT_PIN_DISPLAY_DB14,
+        .db15 = CY8CKIT_028_TFT_PIN_DISPLAY_DB15,
+        .nrd  = CY8CKIT_028_TFT_PIN_DISPLAY_NRD,
+        .nwr  = CY8CKIT_028_TFT_PIN_DISPLAY_NWR,
+        .dc   = CY8CKIT_028_TFT_PIN_DISPLAY_DC,
+        .rst  = CY8CKIT_028_TFT_PIN_DISPLAY_RST
 };
 
 cy_stc_scb_uart_context_t debug_uart_context;
+
+/* Callback data for button interrupts */
+cyhal_gpio_callback_data_t btn1_cb_data;
+cyhal_gpio_callback_data_t btn2_cb_data;
 
 /* Altia Draw Buffer */
 MINIGL_INT16 backBuffer[320 * 240] = {0};
@@ -152,17 +108,17 @@ MINIGL_UINT8 aboutTrigger = 0;
 MINIGL_UINT8 aboutScreenShown = 0;
 
 /*******************************************************************************
-* Function Prototypes
-*******************************************************************************/
-void GPIO_Interrupt(void);
+ * Function Prototypes
+ *******************************************************************************/
+void gpio_interrupt_handler(void* handler_arg, cyhal_gpio_event_t event);
 
 /*******************************************************************************
-* Function Definitions
-*******************************************************************************/
+ * Function Definitions
+ *******************************************************************************/
 
 /**********************************************************************
-* Altia miniGL BSP functions (overwriting WEAK implementations) START *
-**********************************************************************/
+ * Altia miniGL BSP functions (overwriting WEAK implementations) START *
+ **********************************************************************/
 
 void *bsp_GetBackFrameBuffer()
 {
@@ -212,50 +168,41 @@ MINIGL_UINT8 *bsp_ReflashQueryString(MINIGL_CONST MINIGL_UINT16 *string)
 }
 
 /********************************************************************
-* Altia miniGL BSP functions (overwriting WEAK implementations) END *
-********************************************************************/
+ * Altia miniGL BSP functions (overwriting WEAK implementations) END *
+ ********************************************************************/
 
 /* Handling Interrupts of USER BNT1 and USER BTN2 */
-void GPIO_Interrupt()
+void gpio_interrupt_handler(void* handler_arg, cyhal_gpio_event_t event)
 {
-    uint32_t portIntrStatus;
+    /* Check to determine which pin triggered the interrupt */
+    uint32_t interrupt_cause = *((uint32_t *) handler_arg);
 
-    /* Check to determine which pin in the port generated interrupt. */
-    portIntrStatus = P0_4_PORT->INTR;
-    if(CY_GPIO_INTR_STATUS_MASK == ((portIntrStatus >> P0_4_NUM) & CY_GPIO_INTR_STATUS_MASK))
+    if((interrupt_cause == BTN1_CB_ARG) && (event == CYHAL_GPIO_IRQ_FALL))
     {
         screenChange = GPIO_ISR_FLAG;
-
-        /* Clear pin interrupt logic. Required to detect next interrupt */
-        Cy_GPIO_ClearInterrupt(P0_4_PORT, P0_4_NUM);
     }
 
-    /* Check to determine which pin in the port generated interrupt. */
-    portIntrStatus = P1_4_PORT->INTR;
-    if(CY_GPIO_INTR_STATUS_MASK == ((portIntrStatus >> P1_4_NUM) & CY_GPIO_INTR_STATUS_MASK))
+    if((interrupt_cause == BTN2_CB_ARG) && (event == CYHAL_GPIO_IRQ_FALL))
     {
         aboutTrigger = GPIO_ISR_FLAG;
-
-        /* Clear pin interrupt logic. Required to detect next interrupt */
-        Cy_GPIO_ClearInterrupt(P1_4_PORT, P1_4_NUM);
     }
 }
 
 /*******************************************************************************
-* Function Name: main
-********************************************************************************
-* Summary:
-* This is the main function for CPU. It
-*    1. Initializes the display controllers
-*    2. Uses the Altia APIs to transition between different screens
-*
-* Parameters:
-*  void
-*
-* Return:
-*  int
-*
-*******************************************************************************/
+ * Function Name: main
+ ********************************************************************************
+ * Summary:
+ * This is the main function for CPU. It
+ *    1. Initializes the display controllers
+ *    2. Uses the Altia APIs to transition between different screens
+ *
+ * Parameters:
+ *  void
+ *
+ * Return:
+ *  int
+ *
+ *******************************************************************************/
 int main(void)
 {
     cy_rslt_t result;
@@ -281,27 +228,29 @@ int main(void)
     /* Enable global interrupts */
     __enable_irq();
 
+    /* Initialize the retarget-io */
     cy_retarget_io_init(CYBSP_DEBUG_UART_TX, CYBSP_DEBUG_UART_RX, CY_RETARGET_IO_BAUDRATE);
 
     /* Initialize user buttons */
-    Cy_GPIO_Pin_Init(P0_4_PORT, P0_4_NUM, &P0_4_Pin_Init);
-    Cy_GPIO_Pin_Init(P1_4_PORT, P1_4_NUM, &P1_4_Pin_Init);
+    cyhal_gpio_init(CYBSP_USER_BTN1, CYHAL_GPIO_DIR_INPUT, CYBSP_USER_BTN_DRIVE, CYBSP_BTN_OFF);
+    cyhal_gpio_init(CYBSP_USER_BTN2, CYHAL_GPIO_DIR_INPUT, CYBSP_USER_BTN_DRIVE, CYBSP_BTN_OFF);
+
+    uint32_t btn1_arg = BTN1_CB_ARG;
+    uint32_t btn2_arg = BTN2_CB_ARG;
+
+    btn1_cb_data.callback = gpio_interrupt_handler;
+    btn1_cb_data.callback_arg = (void *) &btn1_arg;
+
+    btn2_cb_data.callback = gpio_interrupt_handler;
+    btn2_cb_data.callback_arg = (void *) &btn2_arg;
 
     /* Configure GPIO pin to generate interrupts */
-    Cy_GPIO_SetInterruptEdge(P0_4_PORT, P0_4_NUM, CY_GPIO_INTR_RISING);
-    Cy_GPIO_SetInterruptMask(P0_4_PORT, P0_4_NUM, CY_GPIO_INTR_EN_MASK);
-    Cy_GPIO_SetInterruptEdge(P1_4_PORT, P1_4_NUM, CY_GPIO_INTR_RISING);
-    Cy_GPIO_SetInterruptMask(P1_4_PORT, P1_4_NUM, CY_GPIO_INTR_EN_MASK);
+    cyhal_gpio_register_callback(CYBSP_USER_BTN1, &btn1_cb_data);
+    cyhal_gpio_register_callback(CYBSP_USER_BTN2, &btn2_cb_data);
 
-    /* Configure CM4+ CPU GPIO interrupt vector for Port 0 */
-    Cy_SysInt_Init(&intrCfg0_4, GPIO_Interrupt);
-    NVIC_ClearPendingIRQ(intrCfg0_4.intrSrc);
-    NVIC_EnableIRQ((IRQn_Type)intrCfg0_4.intrSrc);
-
-    /* Configure CM4+ CPU GPIO interrupt vector for Port 0 */
-    Cy_SysInt_Init(&intrCfg1_4, GPIO_Interrupt);
-    NVIC_ClearPendingIRQ(intrCfg1_4.intrSrc);
-    NVIC_EnableIRQ((IRQn_Type)intrCfg1_4.intrSrc);
+    /* Enable GPIO interrupts for falling edge */
+    cyhal_gpio_enable_event(CYBSP_USER_BTN1, CYHAL_GPIO_IRQ_FALL, GPIO_INTERRUPT_PRIORITY, true);
+    cyhal_gpio_enable_event(CYBSP_USER_BTN2, CYHAL_GPIO_IRQ_FALL, GPIO_INTERRUPT_PRIORITY, true);
 
     /* Initialize the display controller */
     result = st7789_init8(&tft_pins);
@@ -318,14 +267,14 @@ int main(void)
     /* initialize Altia GUI */
     if(altiaInitDriver() < 0)
     {
-    	printf("altiaInitDriver() failed!\n\r");
+        printf("altiaInitDriver() failed!\n\r");
 
-    	/* stop here */
-    	while(1);
+        /* stop here */
+        while(1);
     }
     else
     {
-    	printf("altiaInitDriver() Ok!\n\r");
+        printf("altiaInitDriver() Ok!\n\r");
     }
 
     altiaFlushOutput();
