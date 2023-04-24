@@ -23,7 +23,7 @@
 # limitations under the License.
 ################################################################################
 
-HMI_DIR=../ByteSizedDemo
+HMI_DIR=./ByteSizedDemo
 HMI=ByteSizedDemo
 
 ################################################################################
@@ -42,7 +42,7 @@ MTB_TYPE=COMBINED
 # To change the target, it is recommended to use the Library manager
 # ('make library-manager' from command line), which will also update Eclipse IDE launch
 # configurations.
-TARGET=APP_CY8CKIT-062S2-43012
+TARGET=CY8CKIT-062S2-43012
 
 # Name of application (used to derive name of final linked file).
 #
@@ -133,7 +133,7 @@ LDFLAGS=$(HMI_DIR)/out/reflash/$(HMI)/altia_table_bin.o $(HMI_DIR)/out/reflash/$
 LDLIBS=$(HMI_DIR)/out/libaltia.a
 
 # Path to the linker script to use (if empty, use the default linker script).
-LINKER_SCRIPT=$(wildcard ./templates/TARGET_$(TARGET)/COMPONENT_CM4/TOOLCHAIN_$(TOOLCHAIN)/linker.ld)
+LINKER_SCRIPT=
 
 # Custom pre-build commands to run.
 ifeq ("$(wildcard $(HMI_DIR))", "")

@@ -6,3 +6,5 @@ images
 .settings
 .vscode
 
+# Ignore ByteSizedDemo folder
+ByteSizedDemo
