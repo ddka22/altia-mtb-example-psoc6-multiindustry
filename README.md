@@ -20,7 +20,7 @@ This readme describes the steps necessary to build Altia Multi-Industry Demo for
 ## Installation
 For this demo, you need to:
 1. Download and install ModusToolBox&trade;.
-2. Request from support@altia.com to obtain Altia GUI design tool software.
+2. Request from [Infineon ModusToolBox&trade; Access to Altia Design](https://altia.com/resources/infineon-modustoolbox-access-to-altia-design/?utm_campaign=2023-05-InfineonModusTB&amp;utm_medium=partner&amp;utm_source=infineon) to obtain Altia GUI design tool software.
 3. Use the Altia invitation email to create your account.
 4. After creation, download and install the Altia Launcher (available after account creation on our website).
 
